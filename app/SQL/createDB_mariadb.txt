@@ -1,0 +1,7 @@
+DROP TABLE person;
+
+create table person (id int not null auto_increament, 
+primary key(id),
+firstName varchar(20),
+lastName varchar(20), 
+);
