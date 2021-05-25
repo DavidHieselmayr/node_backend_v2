@@ -23,6 +23,8 @@ server.get('/api/echo', (request, response) => {
 
 server.use('/server/api/rest', Controller.handler());
 
+
+server.get
 const port = 8080;
 server.listen(port, () => {
     console.log(`API is listening on port ${port}`);
