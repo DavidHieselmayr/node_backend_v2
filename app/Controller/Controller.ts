@@ -26,6 +26,13 @@ export class Controller {
             res.send(data);
         });
 
+        // findUnitBySchoolclass
+
+        router.get('/schoolclass/findUnitBySchoolclass', async (req,res)=>{
+            let data = await repo.findUnitBySchoolclass("d");
+            res.send(data);
+        })
+
         return router;
     }
 }

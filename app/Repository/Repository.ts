@@ -13,6 +13,7 @@ export class Repository {
         connectionLimit: 5
     })
 
+
     public async initDB(): Promise<void> {
         await this.pool.query("Delete from teacher");
         await this.pool.query("Delete from schoolclass");
@@ -39,7 +40,7 @@ export class Repository {
 
     public async findUnitBySchoolclass(id: string): Promise<Unit[]> {
         try {
-            return await this.pool.query("Select * from unit u join schoolclass s on (s.id = u.refclass) where s.id = ?",[id]);
+            return await this.pool.query("Select * from unit u join schoolclass s on (s.id = u.refclass) where s.id = ?", [id]);
         } catch (ex) {
             console.log('error in findUnitBySchoolclass');
             return [];

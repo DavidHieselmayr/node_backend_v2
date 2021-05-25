@@ -1,7 +1,7 @@
 import {Teacher} from "./Teacher";
 import {Schoolclass} from "./Schoolclass";
 
-export interface Unit{
+export interface Unit {
     id: number;
     day: number;
     unit: number;
