@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 //import express = require('express');
+var Controller_1 = require("./Controller/Controller");
 var express_1 = __importDefault(require("express"));
 //import cors from 'cors';
 // Server erzeugen
@@ -18,6 +19,7 @@ server.use(express_1.default.json());
 server.get('/api/echo', function (request, response) {
     response.send('Hello NodeJS');
 });
+server.use('/server/api/rest', Controller_1.Controller.handler());
 var port = 8080;
 server.listen(port, function () {
     console.log("API is listening on port " + port);

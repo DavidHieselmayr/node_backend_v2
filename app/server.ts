@@ -1,4 +1,5 @@
 //import express = require('express');
+import {Controller} from './Controller/Controller';
 import express from 'express';
 //import cors from 'cors';
 
@@ -14,7 +15,6 @@ server.use(express.json());
 
 // CORS aktivieren
 //server.use (cors);
-import {Controller} from './Controller/Controller';
 
 
 server.get('/api/echo', (request, response) => {
@@ -24,7 +24,6 @@ server.get('/api/echo', (request, response) => {
 server.use('/server/api/rest', Controller.handler());
 
 
-server.get
 const port = 8080;
 server.listen(port, () => {
     console.log(`API is listening on port ${port}`);

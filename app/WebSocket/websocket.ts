@@ -14,7 +14,6 @@ export class Websocket {
         if (!Websocket.instance) {
             Websocket.instance = new Websocket();
         }
-
         return Websocket.instance;
     }
 

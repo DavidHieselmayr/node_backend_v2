@@ -14,6 +14,7 @@ export class Controller {
         });
 
         router.get('/init', async function (req, res) {
+           console.log('init')
             try {
                 await repo.initDB();
                 res.send("init ok");
