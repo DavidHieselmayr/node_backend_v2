@@ -39,7 +39,7 @@ export class Repository {
 
     }
 
-    public async findAllTeachers(): Promise<Teacher[]> {
+    public async findAllTeachers(): Promise<ETeacher[]> {
         try {
             return await this.pool.query("Select id,firstname, lastname, room from teacher");
         } catch (ex) {
@@ -48,7 +48,7 @@ export class Repository {
         }
     }
 
-    public async findUnitBySchoolclass(id: string): Promise<Unit[]> {
+    public async findUnitBySchoolclass(id: string): Promise<EUnit[]> {
         try {
             return await this.pool.query("Select * from unit u join schoolclass s on (s.id = u.refclass) where s.id = ?", [id]);
         } catch (ex) {
