@@ -6,9 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "tscw": "tsc -w"
+    "tscw": "tsc -w",
+    "startserver": "node build/server.js"
   },
-  "author": "Florian Beckerle",
+  "author": "David Hieselmayr",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.11",

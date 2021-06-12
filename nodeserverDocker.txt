@@ -1,0 +1,12 @@
+From node 
+workdir /app 
+copy . . 
+run npm install 
+expose 8080
+CMD ["node","server.js"]
+
+
+docker build -t my-node-app . 
+
+
+docker run -p 8080:8080 my-node-app 
