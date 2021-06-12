@@ -1,4 +1,4 @@
-import {Router, Request, Response, RequestHandler} from "express";
+import {Router, Request, Response, RequestHandler, response} from "express";
 import {Repository} from '../Repository/Repository';
 import {Websocket} from "../WebSocket/websocket";
 
@@ -14,7 +14,7 @@ export class Controller {
         });
 
         router.get('/init', async function (req, res) {
-           console.log('init')
+            console.log('init')
             try {
                 await repo.initDB();
                 res.send("init ok");
@@ -25,15 +25,33 @@ export class Controller {
         });
 
         router.get('/teacher/findAll', async (req, res) => {
-            let data = await repo.findAllTeachers();
-            res.send(data);
+            try {
+                let data = await repo.findAllTeachers();
+                res.send(data);
+            } catch (ex) {
+                console.log('error loc: /teacher/findAll\n'+ex)
+            }
         });
 
-        // findUnitBySchoolclass
 
-        router.get('/schoolclass/findUnitBySchoolclass', async (req, res) => {
-            let data = await repo.findUnitBySchoolclass("d");
-            res.send(data);
+        router.get('/class/findAll', async (req, res) => {
+            try {
+                let data = await repo.findAllSchoolClasses();
+                res.send(data);
+            } catch (ex) {
+                console.log('error loc: /class/findAll\n'+ex);
+            }
+        });
+
+
+        router.get('/unit/findunitfromclassbyclassid/:classid', async (req, res) => {
+            try {
+                let data = await repo.findUnitFromClassByClassid(req.params.classid);
+                res.send(data);
+            } catch (ex) {
+                console.log('error loc: /unit/findclassbyclassid/:classid\n'+ex);
+            }
+
         })
 
         router.get('/ws/:name', (req, res) => {
