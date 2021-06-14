@@ -10,6 +10,7 @@ export class Controller {
         let ws: Websocket = Websocket.getInstance();
 
         router.get('/message', function (req, res) {
+            res.header("Access-Control-Allow-Origin", "*");
             res.send('Rest Servie - USERS')
         });
 
@@ -17,9 +18,11 @@ export class Controller {
             console.log('init')
             try {
                 await repo.initDB();
+                res.header("Access-Control-Allow-Origin", "*");
                 res.send("init ok");
             } catch (error) {
                 console.log("initDB error");
+                res.header("Access-Control-Allow-Origin", "*");
                 res.send("init error");
             }
         });
@@ -27,6 +30,7 @@ export class Controller {
         router.get('/teacher/findAll', async (req, res) => {
             try {
                 let data = await repo.findAllTeachers();
+                res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
                 console.log('error loc: /teacher/findAll\n'+ex)
@@ -37,6 +41,7 @@ export class Controller {
         router.get('/class/findAll', async (req, res) => {
             try {
                 let data = await repo.findAllSchoolClasses();
+                res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
                 console.log('error loc: /class/findAll\n'+ex);
@@ -47,11 +52,29 @@ export class Controller {
         router.get('/unit/findunitfromclassbyclassid/:classid', async (req, res) => {
             try {
                 let data = await repo.findUnitFromClassByClassid(req.params.classid);
+                res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
                 console.log('error loc: /unit/findclassbyclassid/:classid\n'+ex);
             }
 
+        })
+        router.put('/unit/save', async(req,res)=>{
+            try {
+                console.log("bin im put")
+                console.log(req.body)
+
+                //let data = await repo.saveUnit(req.body)
+
+                for (const unitElement of req.body) {
+                    console.log(unitElement);
+                    await repo.saveUnit(unitElement);
+                }
+                res.sendStatus(204);
+            } catch (error) {
+                console.log("saving error");
+                res.send("saving error");
+            }
         })
 
         router.get('/ws/:name', (req, res) => {

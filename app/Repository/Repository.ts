@@ -9,8 +9,8 @@ export class Repository {
     public pool: mariadb.Pool = mariadb.createPool({
         host: 'localhost',
         user: 'root',
-        password: 'secret',
-        database: 'mymaria',
+        password: 'root',
+        database: 'school',
         connectionLimit: 5
     })
 
@@ -24,14 +24,29 @@ export class Repository {
             await this.pool.query("INSERT INTO teacher VALUES (?,?,?,?)", [1, "Gerald", "Aistleitner", "U12"]);
             await this.pool.query("INSERT INTO teacher VALUES (?,?,?,?)", [2, "Herbert", "Lackinger", "221"]);
             await this.pool.query("INSERT INTO teacher VALUES (?,?,?,?)", [3, "Johannes", "Tumfahrt", "E42"]);
+            await this.pool.query("INSERT INTO teacher VALUES (?,?,?,?)", [4, "Erich", "Baar", "222"]);
 
             await this.pool.query("INSERT INTO schoolclass VALUES (?,?)", ["5BHITM", "135"]);
             await this.pool.query("INSERT INTO schoolclass VALUES (?,?)", ["4BHITM", "136"]);
             await this.pool.query("INSERT INTO schoolclass VALUES (?,?)", ["3BHITM", "137"]);
 
             await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 1, 1, "SEW", 1, "3BHITM"]);
-            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 1, 2, "SEW", 2, "4BHITM"]);
+            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 2, 1, "SEW", 2, "4BHITM"]);
             await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 1, 3, "INSY", 3, "5BHITM"]);
+
+            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 2, 2, "SEW", 2, "4BHITM"]);
+
+            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 1, 1, "E", 1, "4BHITM"]);
+
+            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 1, 2, "E", 1, "4BHITM"]);
+
+            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 3, 1, "AM", 3, "4BHITM"]);
+
+            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 3, 2, "SEW", 2, "4BHITM"]);
+
+            await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 5, 8, "MEDT-PD", 2, "4BHITM"]);
+
+
 
         } catch (ex) {
             console.log(ex)
@@ -60,7 +75,7 @@ export class Repository {
 
     public async findUnitFromClassByClassid(id: string): Promise<EUnit[]> {
         try {
-            return await this.pool.query("Select * from unit where unit.schoolclassID = ?", [id]);
+            return await this.pool.query("Select * from unit where unit.schoolclassID = ? order by day asc, unit asc", [id]);
         } catch (ex) {
             console.log('error in findUnitBySchoolclass');
             return [];
@@ -70,11 +85,29 @@ export class Repository {
 
     public async saveUnit(unitDB: EUnit) {
         try {
-            await this.pool.query("Insert into unit values (?,?,?,?,?,?)",
-                [unitDB.day, unitDB.unit, unitDB.subject, unitDB.teacher.id, unitDB.schoolclass.id]);
+            console.log(unitDB.id);
+            if (unitDB.id === null) {
+                console.log("bin im if")
+                console.log(unitDB.schoolclass)
+                await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [
+                    null,
+                    unitDB.day,
+                    unitDB.unit,
+                    unitDB.subject,
+                    unitDB.teacher,
+                    unitDB.schoolclass,
+                ]);
+                console.log("inserted")
+            } else {
+                await this.pool.query(
+                    "UPDATE unit SET subject=?, teacherID=? where id=?",
+                    [unitDB.subject, unitDB.teacher, unitDB.id]
+                );
+                console.log("updated")
+            }
         } catch (ex) {
-            console.log(ex)
+            console.log(ex);
+            return [];
         }
     }
-
 }
