@@ -9,8 +9,8 @@ export class Repository {
     public pool: mariadb.Pool = mariadb.createPool({
         host: 'localhost',
         user: 'root',
-        password: 'root',
-        database: 'school',
+        password: 'secret',
+        database: 'mymaria',
         connectionLimit: 5
     })
 
