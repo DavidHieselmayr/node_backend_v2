@@ -9,13 +9,14 @@ var express_1 = __importDefault(require("express"));
 //import cors from 'cors';
 // Server erzeugen
 var server = express_1.default();
+var cors = require('cors');
 // Static Content aktivieren
 // Beispiel: http://localhost:8080/index.html
 server.use(express_1.default.static('public'));
 // JSON Body parser aktivieren
 server.use(express_1.default.json());
 // CORS aktivieren
-//server.use (cors);
+server.use(cors());
 server.get('/api/echo', function (request, response) {
     response.send('Hello NodeJS');
 });

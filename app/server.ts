@@ -5,6 +5,8 @@ import express from 'express';
 
 // Server erzeugen
 var server = express();
+var cors = require('cors');
+
 
 // Static Content aktivieren
 // Beispiel: http://localhost:8080/index.html
@@ -12,9 +14,8 @@ server.use(express.static('public'));
 
 // JSON Body parser aktivieren
 server.use(express.json());
-
 // CORS aktivieren
-//server.use (cors);
+server.use(cors())
 
 
 server.get('/api/echo', (request, response) => {

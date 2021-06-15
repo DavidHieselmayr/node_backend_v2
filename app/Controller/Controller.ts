@@ -10,7 +10,7 @@ export class Controller {
         let ws: Websocket = Websocket.getInstance();
 
         router.get('/message', function (req, res) {
-            res.header("Access-Control-Allow-Origin", "*");
+            // res.header("Access-Control-Allow-Origin", "*");
             res.send('Rest Servie - USERS')
         });
 
@@ -18,11 +18,11 @@ export class Controller {
             console.log('init')
             try {
                 await repo.initDB();
-                res.header("Access-Control-Allow-Origin", "*");
+                // res.header("Access-Control-Allow-Origin", "*");
                 res.send("init ok");
             } catch (error) {
                 console.log("initDB error");
-                res.header("Access-Control-Allow-Origin", "*");
+                // res.header("Access-Control-Allow-Origin", "*");
                 res.send("init error");
             }
         });
@@ -33,7 +33,7 @@ export class Controller {
                 res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
-                console.log('error loc: /teacher/findAll\n'+ex)
+                console.log('error loc: /teacher/findAll\n' + ex)
             }
         });
 
@@ -44,7 +44,7 @@ export class Controller {
                 res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
-                console.log('error loc: /class/findAll\n'+ex);
+                console.log('error loc: /class/findAll\n' + ex);
             }
         });
 
@@ -55,11 +55,11 @@ export class Controller {
                 res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
-                console.log('error loc: /unit/findclassbyclassid/:classid\n'+ex);
+                console.log('error loc: /unit/findclassbyclassid/:classid\n' + ex);
             }
 
         })
-        router.put('/unit/save', async(req,res)=>{
+        router.put('/unit/save', async (req, res) => {
             try {
                 console.log("bin im put")
                 console.log(req.body)
