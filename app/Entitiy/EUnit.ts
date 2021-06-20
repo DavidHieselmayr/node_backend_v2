@@ -6,7 +6,7 @@ export interface EUnit {
     day: number;
     unit: number;
     subject: string;
-    teacher: ETeacher;
-    schoolclass: ESchoolclass;
+    teacherID: ETeacher;
+    schoolclassID: ESchoolclass;
 }
 

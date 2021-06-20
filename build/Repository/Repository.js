@@ -203,23 +203,26 @@ var Repository = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 5, , 6]);
-                        console.log(unitDB.id);
-                        if (!(unitDB.id === null)) return [3 /*break*/, 2];
+                        console.log(JSON.stringify(unitDB));
+                        if (!(unitDB.id === 0)) return [3 /*break*/, 2];
                         console.log("bin im if");
-                        console.log(unitDB.schoolclass);
+                        console.log(unitDB.schoolclassID);
                         return [4 /*yield*/, this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [
                                 null,
                                 unitDB.day,
                                 unitDB.unit,
                                 unitDB.subject,
-                                unitDB.teacher,
-                                unitDB.schoolclass,
+                                unitDB.teacherID,
+                                unitDB.schoolclassID,
                             ])];
                     case 1:
                         _a.sent();
                         console.log("inserted");
                         return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.pool.query("UPDATE unit SET subject=?, teacherID=? where id=?", [unitDB.subject, unitDB.teacher, unitDB.id])];
+                    case 2:
+                        console.log('bitte updaten, danke');
+                        console.log(JSON.stringify(unitDB));
+                        return [4 /*yield*/, this.pool.query("UPDATE unit SET subject=?, teacherID=? where id=?", [unitDB.subject, unitDB.teacherID, unitDB.id])];
                     case 3:
                         _a.sent();
                         console.log("updated");

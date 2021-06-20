@@ -47,7 +47,6 @@ export class Repository {
             await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [null, 5, 8, "MEDT-PD", 2, "4BHITM"]);
 
 
-
         } catch (ex) {
             console.log(ex)
         }
@@ -65,10 +64,10 @@ export class Repository {
     }
 
     // @ts-ignore
-    public async findAllSchoolClasses(): Promise<ESchoolclass>  {
-        try{
+    public async findAllSchoolClasses(): Promise<ESchoolclass> {
+        try {
             return await this.pool.query("Select * from schoolclass");
-        }catch (ex){
+        } catch (ex) {
             console.log(ex);
         }
     }
@@ -85,23 +84,25 @@ export class Repository {
 
     public async saveUnit(unitDB: EUnit) {
         try {
-            console.log(unitDB.id);
-            if (unitDB.id === null) {
+            console.log(JSON.stringify(unitDB));
+            if (unitDB.id === 0) {
                 console.log("bin im if")
-                console.log(unitDB.schoolclass)
+                console.log(unitDB.schoolclassID)
                 await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [
                     null,
                     unitDB.day,
                     unitDB.unit,
                     unitDB.subject,
-                    unitDB.teacher,
-                    unitDB.schoolclass,
+                    unitDB.teacherID,
+                    unitDB.schoolclassID,
                 ]);
                 console.log("inserted")
             } else {
+                console.log('bitte updaten, danke');
+                console.log(JSON.stringify(unitDB));
                 await this.pool.query(
                     "UPDATE unit SET subject=?, teacherID=? where id=?",
-                    [unitDB.subject, unitDB.teacher, unitDB.id]
+                    [unitDB.subject, unitDB.teacherID, unitDB.id]
                 );
                 console.log("updated")
             }

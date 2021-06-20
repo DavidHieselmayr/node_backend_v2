@@ -30,7 +30,6 @@ export class Controller {
         router.get('/teacher/findAll', async (req, res) => {
             try {
                 let data = await repo.findAllTeachers();
-                res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
                 console.log('error loc: /teacher/findAll\n' + ex)
@@ -41,7 +40,6 @@ export class Controller {
         router.get('/class/findAll', async (req, res) => {
             try {
                 let data = await repo.findAllSchoolClasses();
-                res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
                 console.log('error loc: /class/findAll\n' + ex);
@@ -52,7 +50,6 @@ export class Controller {
         router.get('/unit/findunitfromclassbyclassid/:classid', async (req, res) => {
             try {
                 let data = await repo.findUnitFromClassByClassid(req.params.classid);
-                res.header("Access-Control-Allow-Origin", "*");
                 res.send(data);
             } catch (ex) {
                 console.log('error loc: /unit/findclassbyclassid/:classid\n' + ex);
@@ -60,26 +57,34 @@ export class Controller {
 
         })
         router.put('/unit/save', async (req, res) => {
-            try {
-                console.log("bin im put")
-                console.log(req.body)
-
-                //let data = await repo.saveUnit(req.body)
-
-                for (const unitElement of req.body) {
-                    console.log(unitElement);
-                    await repo.saveUnit(unitElement);
+                try {
+                    console.log(req.body)
+                    let data = await repo.saveUnit(req.body)
+                    res.send(data)
+                } catch
+                    (error) {
+                    console.log("saving error");
+                    res.send("saving error");
                 }
-                res.sendStatus(204);
-            } catch (error) {
-                console.log("saving error");
-                res.send("saving error");
             }
-        })
+        )
 
-        router.get('/ws/:name', (req, res) => {
-            ws.broadcast(req.params.name);
-        })
+        router
+            .get(
+                '/ws/:name'
+                , (
+                    req
+                    ,
+                    res
+                ) => {
+                    ws
+                        .broadcast(req
+
+                            .params
+                            .name
+                        );
+                }
+            )
 
         return router;
     }
