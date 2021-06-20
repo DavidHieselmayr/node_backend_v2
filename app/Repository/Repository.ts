@@ -84,10 +84,7 @@ export class Repository {
 
     public async saveUnit(unitDB: EUnit) {
         try {
-            console.log(JSON.stringify(unitDB));
             if (unitDB.id === 0) {
-                console.log("bin im if")
-                console.log(unitDB.schoolclassID)
                 await this.pool.query("INSERT INTO unit VALUES (?,?,?,?,?,?)", [
                     null,
                     unitDB.day,
@@ -96,15 +93,11 @@ export class Repository {
                     unitDB.teacherID,
                     unitDB.schoolclassID,
                 ]);
-                console.log("inserted")
             } else {
-                console.log('bitte updaten, danke');
-                console.log(JSON.stringify(unitDB));
                 await this.pool.query(
                     "UPDATE unit SET subject=?, teacherID=? where id=?",
                     [unitDB.subject, unitDB.teacherID, unitDB.id]
                 );
-                console.log("updated")
             }
         } catch (ex) {
             console.log(ex);

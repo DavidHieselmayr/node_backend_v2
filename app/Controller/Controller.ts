@@ -15,13 +15,11 @@ export class Controller {
         });
 
         router.get('/init', async function (req, res) {
-            console.log('init')
             try {
                 await repo.initDB();
                 // res.header("Access-Control-Allow-Origin", "*");
                 res.send("init ok");
             } catch (error) {
-                console.log("initDB error");
                 // res.header("Access-Control-Allow-Origin", "*");
                 res.send("init error");
             }
@@ -58,7 +56,6 @@ export class Controller {
         })
         router.put('/unit/save', async (req, res) => {
                 try {
-                    console.log(req.body)
                     let data = await repo.saveUnit(req.body)
                     res.send(data)
                 } catch
